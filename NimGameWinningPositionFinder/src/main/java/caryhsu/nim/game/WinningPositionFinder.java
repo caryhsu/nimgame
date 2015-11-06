@@ -15,7 +15,7 @@ public class WinningPositionFinder<G extends Game<P>, P extends Position> {
 	private Set<P> winningPositions = new HashSet<P>();
 	private Set<P> dangerousPositions = new HashSet<P>();
 	private Set<P> unknownStatePositions = new HashSet<P>();
-	private PositionDumper<P> dumper;
+	PositionDumper<P> dumper;
 	
 	public WinningPositionFinder(G game, PositionDumper<P> dumper) {
 		this.game = game;
@@ -59,22 +59,20 @@ public class WinningPositionFinder<G extends Game<P>, P extends Position> {
 			newWinningPositions = getNextNewWiningPositions();
 		}
 		while(!newWinningPositions.isEmpty()) {
-			dumper.print("newWinningPositions:", newWinningPositions);
+//			dumper.print("newWinningPositions:", newWinningPositions);
 			for(P newWinningPosition : newWinningPositions) {
 				this.winningPositions.add(newWinningPosition);
 				this.unknownStatePositions.remove(newWinningPosition);
 				Set<P> dangerousPositions = this.moveFroms.get(newWinningPosition);
-				if (dangerousPositions == null) {
-					throw new NullPointerException("cannot find position:" + newWinningPosition);
-				}
+				//Object[] dangerousPositionsArray = dangerousPositions.toArray();
 				this.dangerousPositions.addAll(dangerousPositions);
 				this.unknownStatePositions.removeAll(dangerousPositions);
 			}
-			dumper.print("dangerousPositions:", this.dangerousPositions);
-			dumper.print("unknownStatePositions:", this.unknownStatePositions);
+//			dumper.print("dangerousPositions:", this.dangerousPositions);
+//			dumper.print("unknownStatePositions:", this.unknownStatePositions);
 			newWinningPositions = getNextNewWiningPositions();
 		}
-		dumper.print("winningPositions:", this.winningPositions);
+//		dumper.print("winningPositions:", this.winningPositions);
 		return this.winningPositions;
 	}
 	

@@ -1,4 +1,4 @@
-package caryhsu.nim.game.grablast;
+package caryhsu.nim.game.multigrablast.two;
 
 import java.util.Set;
 
@@ -15,6 +15,7 @@ public class GrabLastWinningPositionFinderTest {
 		GrabLastGame game = new GrabLastGame(10, 1, 3, true);
 		WinningPositionFinder<GrabLastGame, GrabLastPosition> finder = new WinningPositionFinder<GrabLastGame, GrabLastPosition>(game, dumper);
 		Set<GrabLastPosition> winningPositions = finder.find();
+		winningPositions = GrabLastNormalizer.normalize(winningPositions);
 		dumper.print("winningPositions:", winningPositions);
 	}
 
