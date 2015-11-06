@@ -24,10 +24,23 @@ public class WinningPositionFinder<G extends Game<P>, P extends Position> {
 	}
 	
 	private void initMoves() {
-		for(P position : this.game.getAllPositions()) {
-			Set<P> nexts = getNextMoves(position);
+		for(P current : this.game.getAllPositions()) {
+			Set<P> nexts = getNextMoves(current);
+			//dumper.print(current + "==>", nexts);
+			if (!this.moveNexts.containsKey(current)) {
+				this.moveNexts.put(current, new HashSet<P>());
+			}
+			if (!this.moveFroms.containsKey(current)) {
+				this.moveFroms.put(current, new HashSet<P>());
+			}
 			for(P next : nexts) {
-				addMove(position, next);
+				if (!this.moveNexts.containsKey(next)) {
+					this.moveNexts.put(next, new HashSet<P>());
+				}
+				if (!this.moveFroms.containsKey(next)) {
+					this.moveFroms.put(next, new HashSet<P>());
+				}
+				addMove(current, next);
 			}
 		}
 	}
@@ -38,6 +51,7 @@ public class WinningPositionFinder<G extends Game<P>, P extends Position> {
 		Set<P> newWinningPositions;
 		if (this.game.isWinWhenGameOver()) {
 			newWinningPositions = this.game.getOverPositions();
+//			dumper.print("newWinningPositions:", newWinningPositions);
 		}
 		else {
 			Set<P> dangerousPositions = this.game.getOverPositions();
@@ -46,7 +60,7 @@ public class WinningPositionFinder<G extends Game<P>, P extends Position> {
 			newWinningPositions = getNextNewWiningPositions();
 		}
 		while(!newWinningPositions.isEmpty()) {
-			//dumper.print("newWinningPositions:", newWinningPositions);
+			dumper.print("newWinningPositions:", newWinningPositions);
 			for(P newWinningPosition : newWinningPositions) {
 				this.winningPositions.add(newWinningPosition);
 				this.unknownStatePositions.remove(newWinningPosition);
@@ -57,8 +71,8 @@ public class WinningPositionFinder<G extends Game<P>, P extends Position> {
 				this.dangerousPositions.addAll(dangerousPositions);
 				this.unknownStatePositions.removeAll(dangerousPositions);
 			}
-			//dumper.print("dangerousPositions:", this.dangerousPositions);
-			//dumper.print("unknownStatePositions:", this.unknownStatePositions);
+			dumper.print("dangerousPositions:", this.dangerousPositions);
+			dumper.print("unknownStatePositions:", this.unknownStatePositions);
 			newWinningPositions = getNextNewWiningPositions();
 		}
 		dumper.print("winningPositions:", this.winningPositions);
@@ -86,20 +100,7 @@ public class WinningPositionFinder<G extends Game<P>, P extends Position> {
 	}
 
 	private void addMove(P current, P next) {
-		if (!this.moveNexts.containsKey(current)) {
-			this.moveNexts.put(current, new HashSet<P>());
-		}
-		if (!this.moveNexts.containsKey(next)) {
-			this.moveNexts.put(next, new HashSet<P>());
-		}
 		this.moveNexts.get(current).add(next);
-		
-		if (!this.moveFroms.containsKey(current)) {
-			this.moveFroms.put(current, new HashSet<P>());
-		}
-		if (!this.moveFroms.containsKey(next)) {
-			this.moveFroms.put(next, new HashSet<P>());
-		}
 		this.moveFroms.get(next).add(current);
 	}
 	
