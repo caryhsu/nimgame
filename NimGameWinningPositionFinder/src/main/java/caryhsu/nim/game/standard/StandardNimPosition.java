@@ -5,6 +5,9 @@ import java.util.List;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+
+import org.apache.commons.lang3.ArrayUtils;
+
 import caryhsu.nim.game.Position;
 
 @EqualsAndHashCode(exclude={})
@@ -16,6 +19,10 @@ public class StandardNimPosition implements Position {
 		this.values = values;
 	}
 	
+	public StandardNimPosition(List<Integer> values) {
+		this.values = ArrayUtils.toPrimitive(values.toArray(new Integer[values.size()]));
+	}
+
 	@Override
 	public String toString() {
 		List<Integer> sizeEachHeapsList = new ArrayList<Integer>();
