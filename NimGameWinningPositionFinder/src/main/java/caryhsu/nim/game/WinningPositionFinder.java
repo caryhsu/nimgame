@@ -32,7 +32,7 @@ public class WinningPositionFinder<G extends Game<P>, P extends Position> {
 		}
 	}
 
-	public void find() {
+	public Set<P> find() {
 		this.unknownStatePositions = new HashSet<P>(this.game.getAllPositions());
 		//dumper.print("unknownStatePositions:", unknownStatePositions);
 		Set<P> newWinningPositions = this.game.getOverPositions();
@@ -50,6 +50,7 @@ public class WinningPositionFinder<G extends Game<P>, P extends Position> {
 			newWinningPositions = getNextNewWiningPositions();
 		}
 		dumper.print("winningPositions:", this.winningPositions);
+		return this.winningPositions;
 	}
 	
 	private Set<P> getNextNewWiningPositions() {
