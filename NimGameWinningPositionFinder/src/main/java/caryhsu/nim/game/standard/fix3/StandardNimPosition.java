@@ -1,5 +1,7 @@
 package caryhsu.nim.game.standard.fix3;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -15,7 +17,11 @@ public class StandardNimPosition implements Position {
 	}
 	@Override
 	public String toString() {
-		return "[" + this.values[0] + "," + this.values[1] + "," + this.values[2] + "]";
+		List<Integer> sizeEachHeapsList = new ArrayList<Integer>();
+		for(int size : this.values)
+			sizeEachHeapsList.add(size);
+		return sizeEachHeapsList.toString();
+//		return "[" + this.values[0] + "," + this.values[1] + "," + this.values[2] + "]";
 	}
 	
 	

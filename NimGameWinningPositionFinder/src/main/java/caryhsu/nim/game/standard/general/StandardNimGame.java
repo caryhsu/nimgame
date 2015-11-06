@@ -54,9 +54,19 @@ public class StandardNimGame implements Game<StandardNimPosition> {
 
 	@Override
 	public boolean canMove(StandardNimPosition current, StandardNimPosition next) {
-		List<Integer> diffIndexes = getValueDiffIndexes(current, next);
-		if (diffIndexes.size() != 1) return false;
-		int index = diffIndexes.get(0);
+		Integer index = null;
+		for(int i = 0; i < current.getValues().length; i++) {
+			int v1 = current.getValues()[i];
+			int v2 = next.getValues()[i];
+			if (v1 != v2) {
+				if (index != null) return false;
+				index = i;
+			}
+		}
+		if (index == null) return false;
+//		List<Integer> diffIndexes = getValueDiffIndexes(current, next);
+//		if (diffIndexes.size() != 1) return false;
+//		int index = diffIndexes.get(0);
 		int currentValue = current.getValues()[index];
 		int nextValue = next.getValues()[index];
 		return currentValue > nextValue;
