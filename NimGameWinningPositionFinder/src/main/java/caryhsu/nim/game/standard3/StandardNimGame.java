@@ -30,14 +30,14 @@ public class StandardNimGame implements Game<StandardNimPosition> {
 	
 	@Override
 	public boolean canMove(StandardNimPosition current, StandardNimPosition next) {
-		if (current.getX() == next.getX() && current.getY() == next.getY()) {
-			return current.getZ() > next.getZ();
+		if (current.getValues()[0] == next.getValues()[0] && current.getValues()[1] == next.getValues()[1]) {
+			return current.getValues()[2] > next.getValues()[2];
 		}
-		if (current.getX() == next.getX() && current.getZ() == next.getZ()) {
-			return current.getY() > next.getY();
+		if (current.getValues()[0] == next.getValues()[0] && current.getValues()[2] == next.getValues()[2]) {
+			return current.getValues()[1] > next.getValues()[1];
 		}
-		if (current.getY() == next.getY() && current.getZ() == next.getZ()) {
-			return current.getX() > next.getX();
+		if (current.getValues()[1] == next.getValues()[1] && current.getValues()[2] == next.getValues()[2]) {
+			return current.getValues()[0] > next.getValues()[0];
 		}
 		return false;
 	}

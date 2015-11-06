@@ -17,6 +17,7 @@ public class StandardNimWinningPositionFinderTest {
 		StandardNimGame game = new StandardNimGame(20);
 		WinningPositionFinder<StandardNimGame, StandardNimPosition> finder = new WinningPositionFinder<StandardNimGame, StandardNimPosition>(game, dumper);
 		Set<StandardNimPosition> winningPositions = finder.find();
+		winningPositions = StandardNimValuesNormalizer.normalize(winningPositions);
 		dumper.print("winningPositions:", winningPositions);
 	}
 
