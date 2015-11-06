@@ -26,7 +26,6 @@ public class WinningPositionFinder<G extends Game<P>, P extends Position> {
 	private void initMoves() {
 		for(P current : this.game.getAllPositions()) {
 			Set<P> nexts = getNextMoves(current);
-			//dumper.print(current + "==>", nexts);
 			if (!this.moveNexts.containsKey(current)) {
 				this.moveNexts.put(current, new HashSet<P>());
 			}
