@@ -17,10 +17,12 @@ public class StandardNimPosition implements Position {
 
 	public StandardNimPosition(int... values) {
 		this.values = values;
+//		this.values = StandardNimValuesNormalizer.normalize(this.values);
 	}
 	
 	public StandardNimPosition(List<Integer> values) {
 		this.values = ArrayUtils.toPrimitive(values.toArray(new Integer[values.size()]));
+//		this.values = StandardNimValuesNormalizer.normalize(this.values);
 	}
 
 	@Override

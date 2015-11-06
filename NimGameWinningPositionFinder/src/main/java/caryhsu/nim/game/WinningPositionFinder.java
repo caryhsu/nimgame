@@ -35,7 +35,16 @@ public class WinningPositionFinder<G extends Game<P>, P extends Position> {
 	public Set<P> find() {
 		this.unknownStatePositions = new HashSet<P>(this.game.getAllPositions());
 		//dumper.print("unknownStatePositions:", unknownStatePositions);
-		Set<P> newWinningPositions = this.game.getOverPositions();
+		Set<P> newWinningPositions;
+		if (this.game.isWinWhenGameOver()) {
+			newWinningPositions = this.game.getOverPositions();
+		}
+		else {
+			Set<P> dangerousPositions = this.game.getOverPositions();
+			this.dangerousPositions.addAll(dangerousPositions);
+			this.unknownStatePositions.removeAll(dangerousPositions);
+			newWinningPositions = getNextNewWiningPositions();
+		}
 		while(!newWinningPositions.isEmpty()) {
 			//dumper.print("newWinningPositions:", newWinningPositions);
 			for(P newWinningPosition : newWinningPositions) {
