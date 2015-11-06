@@ -1,4 +1,4 @@
-package caryhsu.nim.game.standard;
+package caryhsu.nim.game.standard.general;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;

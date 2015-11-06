@@ -1,4 +1,4 @@
-package caryhsu.nim.game.standard3;
+package caryhsu.nim.game.standard.fix3;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,9 +11,11 @@ public class StandardNimGame implements Game<StandardNimPosition> {
 	private static final StandardNimPosition ZERO = new StandardNimPosition(0,0,0);
 	@Getter private int size;
 	@Getter private Set<StandardNimPosition> allPositions = new HashSet<StandardNimPosition>();
+	@Getter private boolean winWhenGameOver;
 
-	public StandardNimGame(int size) {
+	public StandardNimGame(int size, boolean winWhenGameOver) {
 		this.size = size;
+		this.winWhenGameOver = winWhenGameOver;
 		initPositions();
 	}
 
@@ -49,9 +51,4 @@ public class StandardNimGame implements Game<StandardNimPosition> {
 		return positions;
 	}
 	
-	@Override
-	public boolean isWinWhenGameOver() {
-		return true;
-	}
-
 }

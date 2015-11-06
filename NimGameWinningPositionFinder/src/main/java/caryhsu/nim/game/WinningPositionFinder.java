@@ -51,6 +51,9 @@ public class WinningPositionFinder<G extends Game<P>, P extends Position> {
 				this.winningPositions.add(newWinningPosition);
 				this.unknownStatePositions.remove(newWinningPosition);
 				Set<P> dangerousPositions = this.moveFroms.get(newWinningPosition);
+				if (dangerousPositions == null) {
+					throw new NullPointerException("cannot find position:" + newWinningPosition);
+				}
 				this.dangerousPositions.addAll(dangerousPositions);
 				this.unknownStatePositions.removeAll(dangerousPositions);
 			}
@@ -86,8 +89,14 @@ public class WinningPositionFinder<G extends Game<P>, P extends Position> {
 		if (!this.moveNexts.containsKey(current)) {
 			this.moveNexts.put(current, new HashSet<P>());
 		}
+		if (!this.moveNexts.containsKey(next)) {
+			this.moveNexts.put(next, new HashSet<P>());
+		}
 		this.moveNexts.get(current).add(next);
 		
+		if (!this.moveFroms.containsKey(current)) {
+			this.moveFroms.put(current, new HashSet<P>());
+		}
 		if (!this.moveFroms.containsKey(next)) {
 			this.moveFroms.put(next, new HashSet<P>());
 		}

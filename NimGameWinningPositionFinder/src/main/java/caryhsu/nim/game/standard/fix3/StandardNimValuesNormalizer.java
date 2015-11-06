@@ -1,4 +1,4 @@
-package caryhsu.nim.game.standard3;
+package caryhsu.nim.game.standard.fix3;
 
 import java.util.Arrays;
 import java.util.HashSet;
