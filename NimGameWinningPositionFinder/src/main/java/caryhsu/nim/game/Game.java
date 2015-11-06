@@ -11,4 +11,6 @@ public interface Game<P extends Position> {
 	
 	public Set<P> getOverPositions();
 	
+	public boolean isWinWhenGameOver();
+	
 }

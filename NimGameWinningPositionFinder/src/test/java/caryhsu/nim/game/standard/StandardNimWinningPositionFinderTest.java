@@ -12,7 +12,7 @@ public class StandardNimWinningPositionFinderTest {
 	@Test
 	public void findWinningPositions() {
 		PositionDumper<StandardNimPosition> dumper = new PositionDumper<StandardNimPosition>(StandardNimPosition.COMPARATOR);
-		StandardNimGame game = new StandardNimGame();
+		StandardNimGame game = new StandardNimGame(20);
 		WinningPositionFinder<StandardNimGame, StandardNimPosition> finder = new WinningPositionFinder<StandardNimGame, StandardNimPosition>(game, dumper);
 		Set<StandardNimPosition> winningPositions = finder.find();
 		dumper.print("winningPositions:", winningPositions);

@@ -1,7 +1,5 @@
 package caryhsu.nim.game.standard;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,32 +9,26 @@ import caryhsu.nim.game.Game;
 public class StandardNimGame implements Game<StandardNimPosition> {
 
 	private static final StandardNimPosition ZERO = new StandardNimPosition(0,0,0);
-	private static final int MAX_SIZE = 20;
+	@Getter private int size;
 	@Getter private Set<StandardNimPosition> allPositions = new HashSet<StandardNimPosition>();
 
-	public StandardNimGame() {
+	public StandardNimGame(int size) {
+		this.size = size;
 		initPositions();
 	}
 
-	public void add(StandardNimPosition... positions) {
-		this.add(Arrays.asList(positions));
-	}
-
-	public void add(Collection<StandardNimPosition> positions) {
-		this.allPositions.addAll(positions);
-	}
-
 	private void initPositions() {
-		for(int i = 0; i <= MAX_SIZE; i++) {
-			for(int j = 0; j <= MAX_SIZE; j++) {
-				for(int k = 0; k <= MAX_SIZE; k++) {
+		for(int i = 0; i <= size; i++) {
+			for(int j = 0; j <= size; j++) {
+				for(int k = 0; k <= size; k++) {
 					StandardNimPosition position = new StandardNimPosition(i, j, k);
-					this.add(position);
+					this.allPositions.add(position);
 				}
 			}
 		}
 	}
 	
+	@Override
 	public boolean canMove(StandardNimPosition current, StandardNimPosition next) {
 		if (current.getX() == next.getX() && current.getY() == next.getY()) {
 			return current.getZ() > next.getZ();
@@ -50,11 +42,16 @@ public class StandardNimGame implements Game<StandardNimPosition> {
 		return false;
 	}
 
+	@Override
 	public Set<StandardNimPosition> getOverPositions() {
 		Set<StandardNimPosition> positions = new HashSet<StandardNimPosition>();
 		positions.add(ZERO);
 		return positions;
 	}
 	
+	@Override
+	public boolean isWinWhenGameOver() {
+		return true;
+	}
 
 }
