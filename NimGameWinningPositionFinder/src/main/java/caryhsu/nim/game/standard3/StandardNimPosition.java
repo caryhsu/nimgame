@@ -1,4 +1,4 @@
-package caryhsu.nim.game.standard;
+package caryhsu.nim.game.standard3;
 import java.util.Comparator;
 
 import lombok.AllArgsConstructor;

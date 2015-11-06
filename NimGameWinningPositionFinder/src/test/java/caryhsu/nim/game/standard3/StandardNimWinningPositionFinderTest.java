@@ -1,4 +1,4 @@
-package caryhsu.nim.game.standard;
+package caryhsu.nim.game.standard3;
 
 import java.util.Set;
 
@@ -6,6 +6,8 @@ import org.junit.Test;
 
 import caryhsu.nim.game.PositionDumper;
 import caryhsu.nim.game.WinningPositionFinder;
+import caryhsu.nim.game.standard3.StandardNimGame;
+import caryhsu.nim.game.standard3.StandardNimPosition;
 
 public class StandardNimWinningPositionFinderTest {
 
