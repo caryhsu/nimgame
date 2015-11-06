@@ -23,7 +23,7 @@ public class GrabLastGame implements Game<GrabLastPosition> {
 	}
 
 	private void initPositions() {
-		for(int i = 1; i <= size; i++) {
+		for(int i = 0; i <= size; i++) {
 			GrabLastPosition position = new GrabLastPosition(i);
 			this.allPositions.add(position);
 		}

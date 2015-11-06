@@ -1,4 +1,4 @@
-package caryhsu.nim.game.multigrablast.two;
+package caryhsu.nim.game.multigrablast.three;
 import java.util.Comparator;
 
 import lombok.EqualsAndHashCode;
@@ -10,13 +10,13 @@ public class GrabLastPosition implements Position {
 
 	@Getter private int[] values;
 
-	public GrabLastPosition(int value1, int value2) {
-		this.values = new int[] {value1, value2};
+	public GrabLastPosition(int value1, int value2, int value3) {
+		this.values = new int[] {value1, value2, value2};
 	}
 	
 	@Override
 	public String toString() {
-		return "[" + this.values[0] + ", " + this.values[1] + "]";
+		return "[" + this.values[0] + ", " + this.values[1] + ", " + this.values[2] + "]";
 	}
 	
 	
@@ -27,6 +27,8 @@ public class GrabLastPosition implements Position {
 			int result = Integer.compare(p1.values[0], p2.values[0]);
 			if (result != 0) return result;
 			result = Integer.compare(p1.values[1], p2.values[1]);
+			if (result != 0) return result;
+			result = Integer.compare(p1.values[2], p2.values[2]);
 			return result;
 		}
 		
