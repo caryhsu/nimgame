@@ -11,7 +11,7 @@ public class GrabLastPosition implements Position {
 	@Getter private int[] values;
 
 	public GrabLastPosition(int value1, int value2, int value3) {
-		this.values = new int[] {value1, value2, value2};
+		this.values = new int[] {value1, value2, value3};
 	}
 	
 	@Override

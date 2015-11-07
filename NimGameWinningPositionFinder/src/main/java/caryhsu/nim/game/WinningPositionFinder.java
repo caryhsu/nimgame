@@ -24,46 +24,38 @@ public class WinningPositionFinder<G extends Game<P>, P extends Position> {
 		Set<P> newWinningPositions;
 		if (this.game.isWinWhenGameOver()) {
 			newWinningPositions = this.game.getOverPositions();
-//			dumper.print("newWinningPositions:", newWinningPositions);
+			stateManager.addWinningPositions(newWinningPositions);
 		}
 		else {
 			Set<P> dangerousPositions = this.game.getOverPositions();
 			this.stateManager.addDangerousPositions(dangerousPositions);
 			newWinningPositions = getNextNewWiningPositions();
+			stateManager.addWinningPositions(newWinningPositions);
 		}
 		while(!newWinningPositions.isEmpty()) {
-//			dumper.print("newWinningPositions:", newWinningPositions);
+			dumper.print("newWinningPositions:", newWinningPositions);
 			for(P newWinningPosition : newWinningPositions) {
-				stateManager.addWinningPosition(newWinningPosition);
 				Set<P> dangerousPositions = this.gameCache.getMoveFroms(newWinningPosition);
 				this.stateManager.addDangerousPositions(dangerousPositions);
 			}
-//			dumper.print("dangerousPositions:", this.dangerousPositions);
-//			dumper.print("unknownStatePositions:", this.unknownStatePositions);
+			dumper.print("dangerousPositions:", this.stateManager.getDangerousPositions());
+			dumper.print("unknownStatePositions:", this.stateManager.getUnknownStatePositions());
 			newWinningPositions = getNextNewWiningPositions();
+			stateManager.addWinningPositions(newWinningPositions);
 		}
-//		dumper.print("winningPositions:", this.winningPositions);
+		dumper.print("winningPositions:", this.stateManager.getWinningPositions());
 		return this.stateManager.getWinningPositions();
 	}
 	
 	private Set<P> getNextNewWiningPositions() {
 		Set<P> positions = new HashSet<P>();
 		for(P position : this.stateManager.getUnknownStatePositions()) {
-			if (canMoveToUnknownStatePosition(position)) {
+			Set<P> nexts = this.gameCache.getMoveNexts(position);
+			if ((!nexts.isEmpty()) && this.stateManager.getDangerousPositions().containsAll((nexts))) {
 				positions.add(position);
 			}
 		}
 		return positions;
-	}
-
-	private boolean canMoveToUnknownStatePosition(P position) {
-		Set<P> nexts = this.gameCache.getMoveNexts(position);
-		for(P next : nexts) {
-			if (this.stateManager.getUnknownStatePositions().contains(next)) {
-				return false;
-			}
-		}
-		return true;
 	}
 	
 }

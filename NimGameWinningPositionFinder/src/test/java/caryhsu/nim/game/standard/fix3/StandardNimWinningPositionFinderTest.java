@@ -4,11 +4,10 @@ import java.util.Set;
 
 import org.junit.Test;
 
+import caryhsu.nim.game.GameCache;
 import caryhsu.nim.game.PositionDumper;
 import caryhsu.nim.game.WinningPositionFinder;
-import caryhsu.nim.game.standard.fix3.StandardNimGame;
-import caryhsu.nim.game.standard.fix3.StandardNimPosition;
-import caryhsu.nim.game.standard.fix3.StandardNimValuesNormalizer;
+import caryhsu.nim.game.multigrablast.two.GrabLastPosition;
 
 public class StandardNimWinningPositionFinderTest {
 
@@ -20,6 +19,14 @@ public class StandardNimWinningPositionFinderTest {
 		Set<StandardNimPosition> winningPositions = finder.find();
 		winningPositions = StandardNimValuesNormalizer.normalize(winningPositions);
 		dumper.print("winningPositions:", winningPositions);
+	}
+
+	@Test
+	public void dumpAllMove() {
+		StandardNimGame game = new StandardNimGame(20, false);
+		GameCache<StandardNimGame, StandardNimPosition> cache = new GameCache<StandardNimGame, StandardNimPosition>(game);
+		cache.setComparator(StandardNimPosition.COMPARATOR);
+		cache.dump();
 	}
 
 }
