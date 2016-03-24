@@ -1,9 +1,11 @@
 package caryhsu.nim.game;
+import static caryhsu.nim.game.PositionStateManager.PositionState.DANGEROUS;
+import static caryhsu.nim.game.PositionStateManager.PositionState.WINNING;
+
 import java.util.HashSet;
 import java.util.Set;
 
 import lombok.Getter;
-
 
 public class WinningPositionFinder<G extends Game<P>, P extends Position> {
 
@@ -24,24 +26,24 @@ public class WinningPositionFinder<G extends Game<P>, P extends Position> {
 		Set<P> newWinningPositions;
 		if (this.game.isWinWhenGameOver()) {
 			newWinningPositions = this.game.getOverPositions();
-			stateManager.addWinningPositions(newWinningPositions);
+			stateManager.setState(newWinningPositions, WINNING);
 		}
 		else {
 			Set<P> dangerousPositions = this.game.getOverPositions();
-			this.stateManager.addDangerousPositions(dangerousPositions);
+			this.stateManager.setState(dangerousPositions, DANGEROUS);
 			newWinningPositions = getNextNewWiningPositions();
-			stateManager.addWinningPositions(newWinningPositions);
+			stateManager.setState(newWinningPositions, WINNING);
 		}
 		while(!newWinningPositions.isEmpty()) {
 			dumper.print("newWinningPositions:", newWinningPositions);
 			for(P newWinningPosition : newWinningPositions) {
 				Set<P> dangerousPositions = this.gameCache.getMoveFroms(newWinningPosition);
-				this.stateManager.addDangerousPositions(dangerousPositions);
+				this.stateManager.setState(dangerousPositions, DANGEROUS);
 			}
 			dumper.print("dangerousPositions:", this.stateManager.getDangerousPositions());
 			dumper.print("unknownStatePositions:", this.stateManager.getUnknownStatePositions());
 			newWinningPositions = getNextNewWiningPositions();
-			stateManager.addWinningPositions(newWinningPositions);
+			stateManager.setState(newWinningPositions, WINNING);
 		}
 		dumper.print("winningPositions:", this.stateManager.getWinningPositions());
 		return this.stateManager.getWinningPositions();

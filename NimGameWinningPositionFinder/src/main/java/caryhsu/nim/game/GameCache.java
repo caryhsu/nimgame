@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import caryhsu.nim.game.grablast.GrabLastPosition;
 import lombok.Getter;
 import lombok.Setter;
 
